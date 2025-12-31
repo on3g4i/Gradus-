@@ -1,13 +1,25 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-Jf2K77pj.css",
+    "file": "assets/app-Cn5aAm42.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.js": {
-    "file": "assets/app-CMOzu352.js",
+    "file": "assets/app-BbG9bAVI.js",
     "name": "app",
     "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/documents.js": {
+    "file": "assets/documents-DOqNCt_V.js",
+    "name": "documents",
+    "src": "resources/js/documents.js",
+    "isEntry": true
+  },
+  "resources/js/wordCloud.js": {
+    "file": "assets/wordCloud-C-tDzF2U.js",
+    "name": "wordCloud",
+    "src": "resources/js/wordCloud.js",
     "isEntry": true
   }
 }
