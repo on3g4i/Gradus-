@@ -4,7 +4,7 @@ import laravel from 'laravel-vite-plugin';
 export default defineConfig({
     plugins: [
         laravel({
-            input: [ 'resources/css/app.css', 'resources/js/app.js', 'resources/js/documents.js' ],
+            input: ['resources/css/app.css', 'resources/js/app.js', 'resources/js/documents.js', 'resources/js/wordCloud.js'],
             refresh: true,
         }),
     ],
