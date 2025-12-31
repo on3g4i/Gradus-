@@ -30,7 +30,7 @@ class DashboardController extends Controller
         } elseif ($user->isAluno()) {
 
             return view('dashboard', [
-                'tcc' => $user->tccs(),
+                'tccs' => $user->tccs()->get(),
             ]);
         } else {
             $tccs = Tcc::all();
