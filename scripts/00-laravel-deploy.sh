@@ -12,4 +12,8 @@ php artisan route:cache
 echo "Running migrations..."
 php artisan migrate --force
 
+echo "Livewire publish..."
+php artisan livewire:publish --force
+
+echo "Starting Laravel server..."
 php artisan serve --host=0.0.0.0 --port=${PORT}
