@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\TipoUsuario;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -65,6 +66,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'tipo_usuario' => TipoUsuario::class,
         ];
     }
     public function tccsComoAluno()
@@ -93,17 +95,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Documento::class, 'autor_id');
     }
-    public function isAluno()
+    public function isAdmin(): bool
     {
-        return $this->tipo_usuario == 'aluno';
-    }
-    public function isOrientador()
-    {
-        return $this->tipo_usuario == 'orientador';
-    }
-    public function isAdmin()
-    {
-        return $this->tipo_usuario == 'admin';
+        return $this->tipo_usuario === TipoUsuario::ADMIN;
     }
 
+    public function isAluno(): bool
+    {
+        return $this->tipo_usuario === TipoUsuario::ALUNO;
+    }
+
+    public function isOrientador(): bool
+    {
+        return $this->tipo_usuario === TipoUsuario::ORIENTADOR;
+    }
 }
+
+

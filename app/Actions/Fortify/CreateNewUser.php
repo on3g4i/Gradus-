@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Actions\Fortify;
+use App\TipoUsuario;
 use Gate;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Enum;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
@@ -23,17 +25,20 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'users' => ['required', 'in:aluno,orientador' ],
-            'matricula'=> ['required', 'min:7'],
+            'users' => ['required', 'in:aluno,orientador'],
+            'tipo_usuario' => [ new Enum(TipoUsuario::class)],
+            'matricula' => ['required', 'min:7'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
-        ],['users.in'=>'Defina um tipo do usuário'])->validate();
+        ], ['users.in' => 'Defina um tipo do usuário'])->validate();
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'tipo_usuario'=> $input['users'],
-            'matricula'=> $input['matricula']   
+            'tipo_usuario' => isset($input['tipo_usuario'])
+                ? TipoUsuario::from($input['tipo_usuario'])
+                : TipoUsuario::default(),,
+            'matricula' => $input['matricula']
         ]);
     }
 }
