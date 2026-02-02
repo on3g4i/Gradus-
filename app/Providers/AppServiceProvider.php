@@ -26,9 +26,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(UrlGenerator $urlGenerator): void
     {
 
-
-        if (App::runningInConsole()) return;
-
         Gate::define('see-tcc', function (User $user, Tcc $tcc) {
             if ($user->isAdmin()) {
                 return true;
