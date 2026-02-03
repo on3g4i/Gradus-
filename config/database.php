@@ -95,14 +95,8 @@ return [
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
-
-            // 🔐 ISSO resolve o erro de SSL no Render
             'sslmode' => 'require',
-
-            // ⚠️ NÃO use essas opções no Render
-            'options' => extension_loaded('pdo_pgsql') ? [
-                // Deixe VAZIO
-            ] : [],
+            'options' => [],
         ],
 
 
