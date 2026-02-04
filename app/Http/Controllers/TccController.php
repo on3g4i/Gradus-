@@ -65,7 +65,7 @@ class TccController extends Controller
         $valid = $request->validate([
             "nome" => "max:100|required",
             "descricao" => "nullable|max:255",
-            "matricula" => "required|exists:users,matricula",
+            "matricula" =>["required", "exists:users,matricula", Rule::notIn([Auth::user()->matricula])],
             "data" => [
                 "nullable",
                 Rule::date()->afterOrEqual(today()->addYear()),
