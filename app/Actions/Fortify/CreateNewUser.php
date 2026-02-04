@@ -25,8 +25,7 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'users' => ['required', 'in:aluno,orientador'],
-            'tipo_usuario' => [ new Enum(TipoUsuario::class)],
+            'users' => [new Enum(TipoUsuario::class)],
             'matricula' => ['required', 'min:7'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ], ['users.in' => 'Defina um tipo do usuário'])->validate();
@@ -35,8 +34,8 @@ class CreateNewUser implements CreatesNewUsers
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'tipo_usuario' => isset($input['tipo_usuario'])
-                ? TipoUsuario::from($input['tipo_usuario'])
+            'tipo_usuario' => isset($input['users'])
+                ? TipoUsuario::from($input['users'])
                 : TipoUsuario::default(),,
             'matricula' => $input['matricula']
         ]);

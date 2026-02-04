@@ -8,6 +8,7 @@ use App\Models\Tcc;
 use App\Models\User;
 use Gate;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $urlGenerator): void
     {
+        if (app()->environment('production')) {
+            URL::forceScheme('https');
+        }
 
         Gate::define('see-tcc', function (User $user, Tcc $tcc) {
             if ($user->isAdmin()) {
