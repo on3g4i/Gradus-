@@ -29,14 +29,17 @@ class CreateNewUser implements CreatesNewUsers
             'matricula' => ['required', 'min:7'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
         ], ['users.in' => 'Defina um tipo do usuário'])->validate();
+        if (isset($input['users'])) {
+            $tipo_usuario = TipoUsuario::from($input['users']);
+        } else {
+            $tipo_usuario = TipoUsuario::default();
+        }
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'tipo_usuario' => isset($input['users'])
-                ? TipoUsuario::from($input['users'])
-                : TipoUsuario::default(),,
+            'tipo_usuario' => $tipo_usuario,
             'matricula' => $input['matricula']
         ]);
     }

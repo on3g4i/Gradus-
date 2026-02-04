@@ -6,8 +6,6 @@ use App\Models\Dashboard;
 use App\Models\Tcc;
 use Illuminate\Database\Eloquent\Collection;
 use Auth;
-use Gate;
-use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -18,6 +16,7 @@ class DashboardController extends Controller
         $today = now()->toDateString();
         //Pega todos os tccs do usuário, no caso se ele for orientador, verifica se a data é maior que a data do dia e organiza por dias da defesa
         if ($user->isOrientador()) {
+
             $tccs = $user->tccs()->where('tcc.dia_defesa', '>', $today)->orderBy('tcc.dia_defesa')->get();
 
 
@@ -35,7 +34,7 @@ class DashboardController extends Controller
         } else {
             $tccs = Tcc::all();
             return view('dashboard', [
-                'tccs'=>$tccs,
+                'tccs' => $tccs,
                 'dashboard' => new Dashboard(),
                 'palavraChave' => $this->dataWordCloud($tccs),
                 'qntdDeTccPorMes' => $this->quantidadeDeTccPorMes($tccs),

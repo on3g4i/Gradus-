@@ -82,12 +82,12 @@ class User extends Authenticatable
 
     public function tccs()
     {
-        switch ($this->tipo_usuario) {
-            case 'aluno':
-                return $this->tccsComoAluno();
-            case 'orientador':
-                return $this->tccsComoOrientador();
 
+        switch ($this->tipo_usuario) {
+            case TipoUsuario::ALUNO:
+                return $this->tccsComoAluno();
+            case TipoUsuario::ORIENTADOR:
+                return $this->tccsComoOrientador();
         }
 
     }
